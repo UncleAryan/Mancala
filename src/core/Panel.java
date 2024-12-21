@@ -3,14 +3,18 @@ package core;
 import assets.BigHole;
 import assets.Hole;
 import framework.Constants;
+import framework.GameObjectHandler;
+import input.MouseInput;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Panel extends JPanel {
-    private Hole[] playerOneHoles = new Hole[6];
-    private Hole[] playerTwoHoles = new Hole[6];
+    private Hole[] playerOneHoles;
+    private Hole[] playerTwoHoles;
     private BigHole playerOneBigHole, playerTwoBigHole;
+    private GameObjectHandler gameObjectHandler;
+    private MouseInput mouseInput;
 
     public Panel() {
         setPanelSize();
@@ -27,27 +31,33 @@ public class Panel extends JPanel {
 
     private void loadGameObjects() {
         // player 1 holes (up) and player 2 holes (down)
+        playerOneHoles = new Hole[6];
+        playerTwoHoles = new Hole[6];
+        gameObjectHandler = new GameObjectHandler();
         for(int i = 0; i < 6; i++) {
             playerOneHoles[i] = new Hole((i*Constants.HOLE_WIDTH)+(Constants.WIDTH-Constants.HOLE_WIDTH*6)/2,
                     (Constants.HEIGHT-Constants.HOLE_HEIGHT)/3, Constants.HOLE_WIDTH, Constants.HOLE_HEIGHT, "Hole");
+            gameObjectHandler.addGameObject(playerOneHoles[i]);
             playerTwoHoles[i] = new Hole((i*Constants.HOLE_WIDTH)+(Constants.WIDTH-Constants.HOLE_WIDTH*6)/2,
                     (Constants.HEIGHT-Constants.HOLE_HEIGHT)/3*2, Constants.HOLE_WIDTH, Constants.HOLE_HEIGHT, "Hole");
+            gameObjectHandler.addGameObject(playerTwoHoles[i]);
         }
         playerOneBigHole = new BigHole(((Constants.HOLE_WIDTH)+(Constants.WIDTH-Constants.HOLE_WIDTH*6)/4) - Constants.HOLE_WIDTH,
                 (Constants.HEIGHT-Constants.HOLE_HEIGHT)/3 + Constants.HOLE_HEIGHT,
                 Constants.PIT_WIDTH, Constants.PIT_HEIGHT, "PlayerOneBigHole");
+        gameObjectHandler.addGameObject(playerOneBigHole);
         playerTwoBigHole = new BigHole(((Constants.HOLE_WIDTH)+(Constants.WIDTH-Constants.HOLE_WIDTH*6)/4) + Constants.HOLE_WIDTH*6,
                 (Constants.HEIGHT-Constants.HOLE_HEIGHT)/3 + Constants.HOLE_HEIGHT,
                 Constants.PIT_WIDTH, Constants.PIT_HEIGHT, "PlayerTwoBigHole");
+        gameObjectHandler.addGameObject(playerTwoBigHole);
+        mouseInput = new MouseInput(this);
+        this.addMouseListener(mouseInput);
     }
 
     private void renderGameObjects(Graphics g) {
-        for(int i = 0; i < 6; i++) {
-            playerOneHoles[i].render(g);
-            playerTwoHoles[i].render(g);
+        for(int i = 0; i < gameObjectHandler.getGameObjects().size(); i++) {
+            gameObjectHandler.getGameObjects().get(i).render(g);
         }
-        playerOneBigHole.render(g);
-        playerTwoBigHole.render(g);
     }
 
     private void drawBoard(Graphics g) {
