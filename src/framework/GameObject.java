@@ -5,21 +5,21 @@ import java.util.LinkedList;
 
 public abstract class GameObject {
 	protected int x, y, width, height;
-	protected String ID;
+	protected int ID;
 	protected Rectangle bounds;
 	protected int stones;
 	
-	public GameObject(int x, int y, int width, int height, String ID) {
+	public GameObject(int x, int y, int width, int height, int ID) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 		this.ID = ID;
 		bounds = new Rectangle(x, y, width, height);
-		if (ID.equals("Hole")) {
-			stones = 4;
-		} else {
+		if (ID == 6 || ID == 13) {
 			stones = 0;
+		} else {
+			stones = 4;
 		}
 	}
 
@@ -74,7 +74,7 @@ public abstract class GameObject {
 		updateBounds();
 	}
 	
-	public String getID() {
+	public int getID() {
 		return ID;
 	}
 }

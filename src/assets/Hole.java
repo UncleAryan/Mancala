@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.LinkedList;
 
 public class Hole extends GameObject {
-    public Hole(int x, int y, int width, int height, String ID) {
+    public Hole(int x, int y, int width, int height, int ID) {
         super(x, y, width, height, ID);
     }
 

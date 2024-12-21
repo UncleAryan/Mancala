@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.LinkedList;
 
 public class BigHole extends GameObject {
-    public BigHole(int x, int y, int width, int height, String ID) {
+    public BigHole(int x, int y, int width, int height, int ID) {
         super(x, y, width, height, ID);
         stones = 0;
     }
