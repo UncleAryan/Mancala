@@ -1,5 +1,6 @@
 package core;
 
+import assets.BigHole;
 import assets.Hole;
 import framework.Constants;
 
@@ -9,6 +10,7 @@ import java.awt.*;
 public class Panel extends JPanel {
     private Hole[] playerOneHoles = new Hole[6];
     private Hole[] playerTwoHoles = new Hole[6];
+    private BigHole playerOneBigHole, playerTwoBigHole;
 
     public Panel() {
         setPanelSize();
@@ -23,11 +25,29 @@ public class Panel extends JPanel {
         renderGameObjects(g);
     }
 
+    private void loadGameObjects() {
+        // player 1 holes (up) and player 2 holes (down)
+        for(int i = 0; i < 6; i++) {
+            playerOneHoles[i] = new Hole((i*Constants.HOLE_WIDTH)+(Constants.WIDTH-Constants.HOLE_WIDTH*6)/2,
+                    (Constants.HEIGHT-Constants.HOLE_HEIGHT)/3, Constants.HOLE_WIDTH, Constants.HOLE_HEIGHT, "Hole");
+            playerTwoHoles[i] = new Hole((i*Constants.HOLE_WIDTH)+(Constants.WIDTH-Constants.HOLE_WIDTH*6)/2,
+                    (Constants.HEIGHT-Constants.HOLE_HEIGHT)/3*2, Constants.HOLE_WIDTH, Constants.HOLE_HEIGHT, "Hole");
+        }
+        playerOneBigHole = new BigHole(((Constants.HOLE_WIDTH)+(Constants.WIDTH-Constants.HOLE_WIDTH*6)/4) - Constants.HOLE_WIDTH,
+                (Constants.HEIGHT-Constants.HOLE_HEIGHT)/3 + Constants.HOLE_HEIGHT,
+                Constants.PIT_WIDTH, Constants.PIT_HEIGHT, "PlayerOneBigHole");
+        playerTwoBigHole = new BigHole(((Constants.HOLE_WIDTH)+(Constants.WIDTH-Constants.HOLE_WIDTH*6)/4) + Constants.HOLE_WIDTH*6,
+                (Constants.HEIGHT-Constants.HOLE_HEIGHT)/3 + Constants.HOLE_HEIGHT,
+                Constants.PIT_WIDTH, Constants.PIT_HEIGHT, "PlayerTwoBigHole");
+    }
+
     private void renderGameObjects(Graphics g) {
         for(int i = 0; i < 6; i++) {
             playerOneHoles[i].render(g);
             playerTwoHoles[i].render(g);
         }
+        playerOneBigHole.render(g);
+        playerTwoBigHole.render(g);
     }
 
     private void drawBoard(Graphics g) {
@@ -38,16 +58,6 @@ public class Panel extends JPanel {
     private void setBackgroundColor(Graphics g) {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, Constants.WIDTH, Constants.HEIGHT);
-    }
-
-    private void loadGameObjects() {
-        // player 1 holes (up)
-        for(int i = 0; i < 6; i++) {
-            playerOneHoles[i] = new Hole((i*Constants.HOLE_WIDTH)+(Constants.WIDTH-Constants.HOLE_WIDTH*6)/2,
-                    (Constants.HEIGHT-Constants.HOLE_HEIGHT)/3, Constants.HOLE_WIDTH, Constants.HOLE_HEIGHT, "Hole");
-            playerTwoHoles[i] = new Hole((i*Constants.HOLE_WIDTH)+(Constants.WIDTH-Constants.HOLE_WIDTH*6)/2,
-                    (Constants.HEIGHT-Constants.HOLE_HEIGHT)/3*2, Constants.HOLE_WIDTH, Constants.HOLE_HEIGHT, "Hole");
-        }
     }
 
     private void setPanelSize() {
