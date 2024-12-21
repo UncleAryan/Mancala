@@ -7,6 +7,7 @@ public abstract class GameObject {
 	protected int x, y, width, height;
 	protected String ID;
 	protected Rectangle bounds;
+	protected int stones;
 	
 	public GameObject(int x, int y, int width, int height, String ID) {
 		this.x = x;
@@ -15,6 +16,11 @@ public abstract class GameObject {
 		this.height = height;
 		this.ID = ID;
 		bounds = new Rectangle(x, y, width, height);
+		if (ID.equals("Hole")) {
+			stones = 4;
+		} else {
+			stones = 0;
+		}
 	}
 
 	public Rectangle getBounds() {
@@ -25,7 +31,15 @@ public abstract class GameObject {
 		bounds.x = (int) x;
 		bounds.y = (int) y;
 	}
-	
+
+	public int getStones() {
+		return stones;
+	}
+
+	public void setStones(int stones) {
+		this.stones = stones;
+	}
+
 	public abstract void render(Graphics g);
 	public abstract void tick(LinkedList<GameObject> gameObjects);
 

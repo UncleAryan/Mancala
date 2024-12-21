@@ -10,4 +10,7 @@ public class Constants {
 
     public static int PIT_WIDTH = HOLE_WIDTH;
     public static int PIT_HEIGHT = HOLE_HEIGHT * 2;
+
+    public static int BIG_HOLE_FONT_SIZE = PIT_HEIGHT / 3;
+    public static int HOLE_FONT_SIZE = HOLE_HEIGHT / 2;
 }
