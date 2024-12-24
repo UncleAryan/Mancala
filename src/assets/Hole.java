@@ -1,14 +1,24 @@
 package assets;
 
 import framework.Constants;
-import framework.GameObject;
 
 import java.awt.*;
-import java.util.LinkedList;
 
-public class Hole extends GameObject {
+public class Hole {
+    private final int x, y, width, height, ID;
+    private int stones;
+
     public Hole(int x, int y, int width, int height, int ID) {
-        super(x, y, width, height, ID);
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.ID = ID;
+        if(ID == 6 || ID == 13) {
+            stones = 0;
+        } else {
+            stones = 4;
+        }
     }
 
     public void render(Graphics g) {
@@ -21,7 +31,7 @@ public class Hole extends GameObject {
                 y + Constants.HOLE_HEIGHT/2 + Constants.HOLE_FONT_SIZE/2);
     }
 
-    public void tick(LinkedList<GameObject> gameObjects) {
+    public void tick() {
 
     }
 }

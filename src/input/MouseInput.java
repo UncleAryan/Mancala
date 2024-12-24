@@ -20,16 +20,7 @@ public class MouseInput implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         bounds.x = e.getX();
         bounds.y = e.getY();
-        for(int i = 0; i < panel.getGameObjectHandler().getGameObjects().size(); i++) {
-            if(bounds.intersects(panel.getGameObjectHandler().getGameObjects().get(i).getBounds())) {
-                if(panel.getGameObjectHandler().getGameObjects().get(i).getID() == 6 ||
-                   panel.getGameObjectHandler().getGameObjects().get(i).getID() == 13){
-                    System.out.println("You clicked on a big hole");
-                } else {
-                    System.out.println("You clicked on a hole");
-                }
-            }
-        }
+
     }
 
     public void mousePressed(MouseEvent e) {
