@@ -20,7 +20,12 @@ public class MouseInput implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         bounds.x = e.getX();
         bounds.y = e.getY();
-
+        for(int i = 0; i < 14; i++) {
+            if(bounds.intersects(panel.getHoles()[i].getBounds()) && panel.getHoles()[i].getID() != 6 && panel.getHoles()[i].getID() != 13) {
+                System.out.println("You clicked on a hole");
+                panel.getHoles()[i].moveStonesAt(panel, i);
+            }
+        }
     }
 
     public void mousePressed(MouseEvent e) {
