@@ -1,7 +1,6 @@
 package input;
 
 import core.Panel;
-import core.StartUpPanel;
 import framework.GameState;
 
 import java.awt.*;
@@ -13,8 +12,8 @@ public class MouseInput implements MouseListener {
     private Rectangle bounds;
 
     // this is for playing the game
-    public MouseInput(StartUpPanel startUpPanel) {
-        this.panel = startUpPanel.getGamePanel();
+    public MouseInput(Panel panel) {
+        this.panel = panel;
         bounds = new Rectangle();
         bounds.width = 1;
         bounds.height = 1;

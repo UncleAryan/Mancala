@@ -3,6 +3,7 @@ package core;
 import assets.Hole;
 import framework.Constants;
 import framework.GameState;
+import input.MouseInput;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,7 @@ public class Panel extends JPanel implements Runnable{
     private Game game;
     private Thread thread;
     private Boolean gameOver;
-    private StartUpPanel startUpPanel;
+    private MouseInput mouseInput;
 
     public Panel() {
         setPanelSize();
@@ -23,12 +24,7 @@ public class Panel extends JPanel implements Runnable{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if(GameState.state == GameState.MENU) {
-            startUpPanel.render(g);
-        } else {
-            render(g);
-        }
-
+        render(g);
     }
 
     public void run() {
@@ -44,7 +40,6 @@ public class Panel extends JPanel implements Runnable{
     }
 
     private void load() {
-        startUpPanel = new StartUpPanel(this);
         // logic is that the bottom left most hole is ID = 0 and goes counter clock wise
         // so 0 - 5 is player 1, 6 is player 1's pit, 7 to 12 is player 2, 13 is player 2's pit
         gameOver = false;
@@ -67,8 +62,8 @@ public class Panel extends JPanel implements Runnable{
         holes[6] = new Hole(((Constants.HOLE_WIDTH)+(Constants.WIDTH-Constants.HOLE_WIDTH*6)/4) + Constants.HOLE_WIDTH*6,
                 (Constants.HEIGHT-Constants.HOLE_HEIGHT)/3 + Constants.HOLE_HEIGHT,
                 Constants.PIT_WIDTH, Constants.PIT_HEIGHT, 6);
-
-        this.addMouseListener(startUpPanel.getMouseInput());
+        mouseInput = new MouseInput(this);
+        this.addMouseListener(mouseInput);
     }
 
     private void startThread() {
