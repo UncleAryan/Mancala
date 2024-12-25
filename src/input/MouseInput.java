@@ -20,6 +20,7 @@ public class MouseInput implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         bounds.x = e.getX();
         bounds.y = e.getY();
+
         for(int i = 0; i < 14; i++) {
             if(bounds.intersects(panel.getHoles()[i].getBounds()) && panel.getHoles()[i].getID() != 6 && panel.getHoles()[i].getID() != 13) {
                 panel.getHoles()[i].moveStonesAt(panel, i);

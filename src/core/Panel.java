@@ -12,6 +12,7 @@ public class Panel extends JPanel implements Runnable{
     private Hole[] holes;
     private Game game;
     private Thread thread;
+    private Boolean gameOver;
 
     public Panel() {
         setPanelSize();
@@ -27,7 +28,7 @@ public class Panel extends JPanel implements Runnable{
 
     public void run() {
         try {
-            while(true) {
+            while(!gameOver) {
                 repaint();
 
                 Thread.sleep(100);
@@ -40,6 +41,7 @@ public class Panel extends JPanel implements Runnable{
     private void load() {
         // logic is that the bottom left most hole is ID = 0 and goes counter clock wise
         // so 0 - 5 is player 1, 6 is player 1's pit, 7 to 12 is player 2, 13 is player 2's pit
+        gameOver = false;
         game = new Game(this);
         holes = new Hole[14];
         int playerTwoIndex = 12;
@@ -76,6 +78,7 @@ public class Panel extends JPanel implements Runnable{
         for(int i = 0; i < 14; i++) {
             holes[i].render(g);
         }
+        game.displayPlayerTurn(g);
     }
 
     private void drawBoard(Graphics g) {
